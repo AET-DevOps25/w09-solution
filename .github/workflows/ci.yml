@@ -1,0 +1,96 @@
+name: devops demo CI parent workflow
+
+on:
+  push: { branches: [main] }
+  pull_request:
+
+jobs:
+  hawkeye:
+    permissions:
+      contents: read
+    name: hawkeye
+    uses: ./.github/workflows/hawkeye.yml
+  gitleaks:
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
+      pull-requests: write
+    name: gitleaks
+    uses: ./.github/workflows/gitleaks.yml
+  java_linting:
+    permissions:
+      contents: read
+      pull-requests: write
+    name: java
+    uses: ./.github/workflows/java.yml
+  terraform_linting:
+    uses: ./.github/workflows/tflint.yml
+  sast_1:
+    permissions:
+      contents: read
+    uses: ./.github/workflows/semgrep.yml
+  sast_2:
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
+      pull-requests: write
+    uses: ./.github/workflows/kics.yml
+  spellcheck:
+    uses: ./.github/workflows/spelling.yml
+  npm-audit:
+    uses: ./.github/workflows/npm-audit.yml
+
+  build-server-container:
+    uses: ./.github/workflows/build-container.yml
+    with:
+      context: ./server
+      dockerfile: ./server/Dockerfile
+      image-authors: "Patrick Stoeckle"
+      image-description: "Canteen App Backend built with Spring Boot"
+      image-registry: ghcr.io
+      image-name: pstoeckle/w09-solution/server
+      image-tag: ${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }}
+      image-title: "Canteen App Backend"
+    permissions:
+      contents: read
+      packages: write
+    secrets:
+      cosign-key: ${{ secrets.COSIGN_PRIVATE_KEY }}
+
+  build-client-container:
+    uses: ./.github/workflows/build-container.yml
+    with:
+      context: ./client
+      dockerfile: ./client/Dockerfile
+      ignore-codes: "CIS-DI-0010"
+      image-authors: "Benedikt Hofmann"
+      image-description: "Canteen App Frontend built with Svelte Kit"
+      image-registry: ghcr.io
+      image-name: pstoeckle/w09-solution/client
+      image-tag: ${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }}
+      image-title: "Canteen App Frontend"
+    permissions:
+      contents: read
+      packages: write
+    secrets:
+      cosign-key: ${{ secrets.COSIGN_PRIVATE_KEY }}
+
+  build-llm-container:
+    uses: ./.github/workflows/build-container.yml
+    with:
+      context: ./llm
+      dockerfile: ./llm/Dockerfile
+      ignore-codes: "CIS-DI-0010"
+      image-authors: "Benedikt Hofmann"
+      image-description: "Canteen App LLM Connector built with FastAPI"
+      image-registry: ghcr.io
+      image-name: pstoeckle/w09-solution/llm
+      image-tag: ${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }}
+      image-title: "Canteen App LLM Connector"
+    permissions:
+      contents: read
+      packages: write
+    secrets:
+      cosign-key: ${{ secrets.COSIGN_PRIVATE_KEY }}

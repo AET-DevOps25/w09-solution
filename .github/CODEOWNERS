@@ -1,0 +1,12 @@
+# Default Code Owners file for the repository.
+* @pstoeckle @b3n3d17
+
+# Only @b3n3d17 can approve changes to files in /.github/
+/.github/ @b3n3d17
+
+# ... but only @pstoeckle can approve changes to the CODEOWNERS file.
+/.github/CODEOWNERS @pstoeckle
+
+# Anyone with write permissions can approve changes to the following directories and files.
+/demo/
+/ui/

@@ -1,0 +1,68 @@
+# REUSE-IgnoreStart
+inlineHeader = """
+Copyright © {{ props.copyrightOwner }} {{ attrs.git_file_created_year }} - {{ attrs.git_file_modified_year }}
+
+Licensed under the MIT License
+
+Authors: {{ props.authors }}
+
+SPDX-FileCopyrightText: {{ attrs.git_file_created_year }} {{ props.copyrightOwner }}
+
+SPDX-License-Identifier: MIT
+"""
+# REUSE-IgnoreEnd
+
+# You can exclude files and folders
+excludes = [
+    ".flake8",
+    ".git/*",
+    ".gitkeep",
+    ".gradle/*",
+    ".vscode/*",
+    "*.ico",
+    "*.j2",
+    "*.jar",
+    "*.json",
+    "*.json5",
+    "*.jsonc",
+    "*.lock",
+    "*.png",
+    "*.pub",
+    "*.txt",
+    "*harden.bash*",
+    "build/*",
+    "CHANGELOG.md",
+    "COPYING.md",
+    "css/pointer-0.1.4.min.css",
+    "gradle/*",
+    "gradlew.bat",
+    "gradlew",
+    "LICENSE.md",
+    "LICENSES/*",
+    "Makefile",
+    "node_modules/*",
+    "plugins/*",
+    "theme/*",
+]
+
+additionalHeaders = ["licenseheaders.toml"]
+useDefaultExcludes = false
+
+[mapping.NEW_SCRIPT]
+extensions = ["dockerignore", "gitignore", "gitattributes"]
+
+[mapping.JINJA]
+extensions = ["jinja"]
+
+[mapping.MARKDOWN]
+extensions = ["md"]
+
+# Define variables for your file header
+[properties]
+copyrightOwner = "TUM AET"
+authors = "Benedikt Hofmann, Patrick Stoeckle, and other contributors"
+
+# Activate git features to detect when a file has been changed
+[git]
+ignore = 'auto'
+attrs = 'enable'

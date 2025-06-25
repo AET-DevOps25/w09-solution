@@ -1,0 +1,20 @@
+on:
+    workflow_call:
+
+jobs:
+    hawkeye:
+        name: hawkeye
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+
+        steps:
+            - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+              with:
+                  fetch-depth: 0
+                  ref: ${{ github.ref }}
+
+            - name: Run Hawkeye
+              uses: korandoru/hawkeye@cdc68d9c8ace500aefcd8f4dd39b915cd06305dd
+              with:
+                  github_token: ${{ github.token }}

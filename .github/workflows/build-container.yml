@@ -1,0 +1,86 @@
+name: container image building and scanning
+
+on:
+  workflow_call:
+    inputs:
+      context:
+        required: true
+        type: string
+      dockerfile:
+        required: true
+        type: string
+      image-registry:
+        required: false
+        type: string
+        default: ghcr.io
+      image-name:
+        required: true
+        type: string
+      image-tag:
+        required: true
+        type: string
+      ignore-codes:
+        required: false
+        type: string
+        default: ""
+      image-title:
+        description: The title of the image
+        required: true
+        type: string
+      image-description:
+        description: The description of the image
+        required: true
+        type: string
+      image-authors:
+        description: The authors of the image
+        required: true
+        type: string
+    secrets:
+      cosign-key:
+        required: true
+
+jobs:
+  hadolint:
+    permissions:
+      contents: read
+    name: Hadolint
+    uses: ./.github/workflows/hadolint.yml
+    with:
+      dockerfile: ${{ inputs.dockerfile }}
+  docker:
+    uses: ./.github/workflows/docker.yml
+    needs:
+      - hadolint
+    with:
+      context: ${{ inputs.context }}
+      dockerfile: ${{ inputs.dockerfile }}
+      image-authors: ${{ inputs.image-authors }}
+      image-description: ${{ inputs.image-description }}
+      image-name: ${{ inputs.image-name }}
+      image-registry: ${{ inputs.image-registry }}
+      image-tag: ${{ inputs.image-tag }}
+      image-title: ${{ inputs.image-title }}
+    permissions:
+      contents: read
+      packages: write
+  dockle:
+    uses: ./.github/workflows/dockle.yml
+    needs:
+      - docker
+    with:
+      ignore-codes: ${{ inputs.ignore-codes }}
+      image-digest: ${{ needs.docker.outputs.image-digest }}
+      image-name: ${{ inputs.image-name }}
+      image-registry: ${{ inputs.image-registry }}
+  trivy:
+    uses: ./.github/workflows/trivy.yml
+    needs:
+      - docker
+    with:
+      image-digest: ${{ needs.docker.outputs.image-digest }}
+      image-name: ${{ inputs.image-name }}
+      image-registry: ${{ inputs.image-registry }}
+    permissions:
+      packages: write
+    secrets:
+      cosign-key: ${{ secrets.cosign-key }}
