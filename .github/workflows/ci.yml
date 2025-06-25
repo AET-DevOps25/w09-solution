@@ -60,7 +60,7 @@ jobs:
       image-authors: "Patrick Stoeckle"
       image-description: "Canteen App Backend built with Spring Boot"
       image-registry: ghcr.io
-      image-name: pstoeckle/w09-solution/server
+      image-name: aet-devops25/w09-solution/server
       image-tag: ${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }}
       image-title: "Canteen App Backend"
     permissions:
@@ -78,7 +78,7 @@ jobs:
       image-authors: "Benedikt Hofmann"
       image-description: "Canteen App Frontend built with Svelte Kit"
       image-registry: ghcr.io
-      image-name: pstoeckle/w09-solution/client
+      image-name: aet-devops25/w09-solution/client
       image-tag: ${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }}
       image-title: "Canteen App Frontend"
     permissions:
@@ -96,7 +96,7 @@ jobs:
       image-authors: "Benedikt Hofmann"
       image-description: "Canteen App LLM Connector built with FastAPI"
       image-registry: ghcr.io
-      image-name: pstoeckle/w09-solution/llm
+      image-name: aet-devops25/w09-solution/llm
       image-tag: ${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }}
       image-title: "Canteen App LLM Connector"
     permissions:
