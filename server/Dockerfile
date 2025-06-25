@@ -1,3 +1,13 @@
+# Copyright © TUM AET 2025 - 2025
+#
+# Licensed under the MIT License
+#
+# Authors: Benedikt Hofmann, Patrick Stoeckle, and other contributors
+#
+# SPDX-FileCopyrightText: 2025 TUM AET
+#
+# SPDX-License-Identifier: MIT
+
 # Stage 1: Build the application
 FROM gradle:8.14-jdk21 AS build
 

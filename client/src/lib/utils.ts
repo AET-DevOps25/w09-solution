@@ -1,3 +1,15 @@
+/*
+ * Copyright © TUM AET 2025 - 2025
+ *
+ * Licensed under the MIT License
+ *
+ * Authors: Benedikt Hofmann, Patrick Stoeckle, and other contributors
+ *
+ * SPDX-FileCopyrightText: 2025 TUM AET
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
 export function getCookie(name: string): string | null {
     if (typeof document === 'undefined') return null;
     return document.cookie

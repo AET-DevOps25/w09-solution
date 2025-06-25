@@ -1,3 +1,13 @@
+# Copyright © TUM AET 2025 - 2025
+#
+# Licensed under the MIT License
+#
+# Authors: Benedikt Hofmann, Patrick Stoeckle, and other contributors
+#
+# SPDX-FileCopyrightText: 2025 TUM AET
+#
+# SPDX-License-Identifier: MIT
+
 # Use a Node.js Alpine image for the builder stage
 FROM node:22-alpine AS builder
 WORKDIR /app

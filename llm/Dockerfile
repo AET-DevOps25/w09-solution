@@ -1,3 +1,13 @@
+# Copyright © TUM AET 2025 - 2025
+#
+# Licensed under the MIT License
+#
+# Authors: Benedikt Hofmann, Patrick Stoeckle, and other contributors
+#
+# SPDX-FileCopyrightText: 2025 TUM AET
+#
+# SPDX-License-Identifier: MIT
+
 # Build a virtualenv using the appropriate Debian release
 # * Install python3-venv for the built-in Python3 venv module (not installed by default)
 # * Install gcc libpython3-dev to compile C Python modules
